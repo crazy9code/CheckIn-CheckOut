@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { Header } from './components/common';
-import LoginForm from './components/LoginForm';
+import { Provider } from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+import { createStore, applyMiddleware } from 'redux';
+import Router from './Router';
+import reducers from './reducers';
 
 class RootComponent extends Component {
   render() {
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
     return (
-      <View>
-        <Header>Kuliza Attendance</Header>
-        <LoginForm />
-      </View>
+      <Provider store={store}>
+        <Router />
+      </Provider>
     );
   }
 }
