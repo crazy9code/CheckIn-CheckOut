@@ -4,10 +4,7 @@ import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 import Router from './Router';
 import reducers from './reducers';
-import { View } from 'react-native';
-import { Header } from './components/common';
-import LoginForm from './components/LoginForm';
-import CheckInCheckOut from './components/CheckInCheckOutScreen'
+import LoginForm from './components/LoginForm'
 import Home from './components/Home'
 
 class RootComponent extends Component {
@@ -15,10 +12,9 @@ class RootComponent extends Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
     return (
-      <Provider store={store}>
-        <Router />
-      </Provider>
-      
+        <Provider store={store}>
+          <Router />
+        </Provider>
     );
   }
 }
