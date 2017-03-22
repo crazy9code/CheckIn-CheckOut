@@ -5,17 +5,20 @@ import { Actions } from 'react-native-router-flux';
 
 export default class MyComponent extends Component {
 
-  onButtonPressed() {
-    Actions.checkinout();
+  onCheckInButtonPressed() {
+    Actions.checkin();
+  }
+  onCheckOutButtonPressed() {
+    Actions.checkout();
   }
   render() {
     return (
       <Card style={styles.container}>
         <CardSection>
-          <Button onPress={this.onButtonPressed.bind(this)}>CheckIn</Button>
+          <Button onPress={this.onCheckInButtonPressed.bind(this)}>CheckIn</Button>
         </CardSection>
         <CardSection>
-          <Button onPress={this.onButtonPressed.bind(this)}>CheckOut</Button>
+          <Button onPress={this.onCheckOutButtonPressed.bind(this)}>CheckOut</Button>
         </CardSection>
       </Card>
     );

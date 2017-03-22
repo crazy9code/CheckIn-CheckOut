@@ -26,7 +26,7 @@ export default class MyComponent extends Component {
         </CardSection>
         <CardSection>
           <Button >
-            Check In / Check Out
+            Check Out
           </Button>
         </CardSection>
 
