@@ -5,7 +5,7 @@ import {
   TextInput
 } from 'react-native';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
+const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, keyboardType, maxLength }) => {
   const { inputStyle, labelStyle, containerStyle } = styles;
 
   return (
@@ -14,8 +14,10 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry }) => 
       <TextInput
         secureTextEntry={secureTextEntry}
         autoCorrect={false}
+        maxLength={maxLength}
         placeholder={placeholder}
         placeholderTextColor='#D3D3D3'
+        keyboardType={keyboardType}
         style={inputStyle}
         value={value}
         onChangeText={onChangeText}
@@ -34,7 +36,7 @@ const styles={
     flex: 2,
   },
   labelStyle: {
-    fontSize: 18,
+    fontSize: 14,
     paddingLeft: 20,
     flex: 1
   },
