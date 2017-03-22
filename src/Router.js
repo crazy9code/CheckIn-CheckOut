@@ -2,6 +2,7 @@ import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home';
+import CheckInCheckOut from './components/CheckInCheckOutScreen'
 
 const RouterComponent = () => {
   return (
@@ -11,15 +12,20 @@ const RouterComponent = () => {
       </Scene>
       <Scene key="main">
         <Scene
-          onRight={() => Actions.employeeCreate()}
+          onRight={() => Actions.auth()}
           rightTitle="Logout"
           key="Kuliza"
           component={Home}
           title="Kuliza"
           initial
         />
+        <Scene
+          key="checkinout"
+          component={CheckInCheckOut}
+          title="CheckInOut"
+        />
       </Scene>
-     </Router>
+    </Router>
   );
 };
 export default RouterComponent;
