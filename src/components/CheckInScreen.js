@@ -6,13 +6,13 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardSection, Button, Input, Spinner } from './common';
-import { eidChanged, checkInUser } from '../actions';
+import { checkInEidChanged, checkInUser } from '../actions';
 
 
 export class MyComponent extends Component {
 
   onEidChange(text) {
-    this.props.eidChanged(text);
+    this.props.checkInEidChanged(text);
   }
 
   onButtonPress() {
@@ -44,7 +44,7 @@ export class MyComponent extends Component {
             maxLength={3}
             value={this.props.eid}
             onChangeText={this.onEidChange.bind(this)}
-            />
+          />
         </CardSection>
         <CardSection>
           {this.renderButton()}
@@ -68,5 +68,5 @@ const mapStateToProps = ({ checkin }) => {
 };
 
 export default connect(mapStateToProps, {
-  eidChanged, checkInUser
+  checkInEidChanged, checkInUser
 })(MyComponent);
