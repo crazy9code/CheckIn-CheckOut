@@ -31,7 +31,6 @@ const getToken = async() => {
     const value = await AsyncStorage.getItem('@KulizaAttendance:access_token');
     if (value !== null) {
       // We have data!!
-      console.log(value);
     }
   } catch (error) {
     // Error retrieving data
