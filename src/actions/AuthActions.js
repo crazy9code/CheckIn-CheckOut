@@ -32,7 +32,11 @@ export const loginUser = ({ email, password }) => {
   })
   .then(response => {
       console.log(response);
-      loginUserSuccess(dispatch, response);
+      if (!response.data.error) {
+        loginUserSuccess(dispatch, response);
+      } else {
+          loginUserFail(dispatch);
+      }
     })
   .catch((error) => {
       console.log(error);
