@@ -1,5 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
+import { AsyncStorage, Alert } from 'react-native';
 import {
   CHECK_IN,
   CHECK_IN_EID_CHANGED,
@@ -25,32 +26,51 @@ export const checkOutEidChanged = (text) => {
   };
 };
 
+const getToken = async() => {
+  try {
+    const value = await AsyncStorage.getItem('@KulizaAttendance:access_token');
+    if (value !== null) {
+      // We have data!!
+      console.log(value);
+    }
+  } catch (error) {
+    // Error retrieving data
+  }
+};
+
 export const checkInUser = ({ eid }) => {
   return (dispatch) => {
     dispatch({ type: CHECK_IN });
 
-  axios.post('https://demo8889499.mockable.io/checkin', {
-    emp: eid,
-  })
-  .then(response => {
-      console.log(response.data.code);
-      if (response.data.code === 0) {
-        checkInSuccess(dispatch, response);
-      } else {
-        checkInFail(dispatch);
+    getToken();
+
+    axios.post('https://demo8889499.mockable.io/checkin', {
+      emp: eid,
+    })
+    .then(response => {
+        if (response.data.code === 0) {
+          checkInSuccess(dispatch, response);
+        } else {
+          checkInFail(dispatch, response.data.message);
+        }
       }
-    }
-  )
-  .catch((error) => {
-      console.log(error);
+    )
+    .catch((error) => {
       checkInFail(dispatch);
     });
   };
 };
 
-const checkInFail = (dispatch) => {
+const checkInFail = (dispatch, message) => {
   dispatch({ type: CHECK_IN_FAIL });
-  console.log('failed to check in');
+  Alert.alert(
+    'Check In Result',
+    'Failed to Check In\nMessage: ' + message,
+    [
+      { text: 'OK' },
+    ],
+    { cancelable: false }
+  );
 };
 
 const checkInSuccess = (dispatch, user) => {
@@ -58,7 +78,15 @@ const checkInSuccess = (dispatch, user) => {
     type: CHECK_IN_SUCCESS,
     payload: user
   });
-  console.log('successfully checked in');
+
+  Alert.alert(
+    'Check In Result',
+    'Successfully Checked In',
+    [
+      { text: 'OK', onPress: () => Actions.pop() },
+    ],
+    { cancelable: false }
+  );
 };
 
 export const checkOutUser = ({ eid }) => {
@@ -69,24 +97,29 @@ export const checkOutUser = ({ eid }) => {
     emp: eid,
   })
   .then(response => {
-      console.log(response.data.code);
       if (response.data.code === 0) {
         checkOutSuccess(dispatch, response);
       } else {
-        checkOutFail(dispatch);
+        checkOutFail(dispatch, response.data.message);
       }
     }
   )
   .catch((error) => {
-      console.log(error);
       checkOutFail(dispatch);
     });
   };
 };
 
-const checkOutFail = (dispatch) => {
+const checkOutFail = (dispatch, message) => {
   dispatch({ type: CHECK_OUT_FAIL });
-  console.log('failed to check in');
+  Alert.alert(
+    'Check Out Result',
+    'Failed to Check Out\nMessage: ' + message,
+    [
+      { text: 'OK' },
+    ],
+    { cancelable: false }
+  );
 };
 
 const checkOutSuccess = (dispatch, user) => {
@@ -94,5 +127,13 @@ const checkOutSuccess = (dispatch, user) => {
     type: CHECK_OUT_SUCCESS,
     payload: user
   });
-  console.log('successfully checked in');
+
+  Alert.alert(
+    'Check Out Result',
+    'Successfully Checked Out',
+    [
+      { text: 'OK', onPress: () => Actions.pop() },
+    ],
+    { cancelable: false }
+  );
 };

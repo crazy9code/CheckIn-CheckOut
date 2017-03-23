@@ -38,7 +38,7 @@ export class MyComponent extends Component {
         <CardSection>
           <Input
             label='Employee ID'
-            placeholder='000'
+            placeholder='0000'
             keyboardType='numeric'
             maxLength={4}
             value={this.props.eid}

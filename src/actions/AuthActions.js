@@ -1,5 +1,6 @@
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
@@ -22,28 +23,36 @@ export const passwordChanged = (text) => {
   };
 };
 
+const storeToken = async(text) => {
+  try {
+    await AsyncStorage.setItem('@KulizaAttendance:access_token', text);
+  } catch (error) {
+    // Error saving data
+  }
+};
+
 export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
 
-    loginUserSuccess(dispatch);
-  //   axios.post('http://192.168.150.184:8000/employee/login/', {
-  //   username: email,
-  //   password: password
-  // })
-  // .then(response => {
-
-  //     if (response.data.code===0){
-  //       loginUserSuccess(dispatch, response);
-  //     } else {
-  //       loginUserFail(dispatch);
-  //     }
-  //   }
-  // )
-  // .catch((error) => {
-
-  //     loginUserFail(dispatch);
-  //   });
+    axios.post('https://demo8889499.mockable.io/login', {
+    username: email,
+    password: password
+  })
+  .then(response => {
+      console.log(response.data);
+      if (response.data.code === 0) {
+        loginUserSuccess(dispatch, response);
+        storeToken(response.data.token);
+      } else {
+        loginUserFail(dispatch);
+      }
+    }
+  )
+  .catch((error) => {
+      console.log(error);
+      loginUserFail(dispatch);
+    });
   };
 };
 
