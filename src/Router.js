@@ -2,7 +2,8 @@ import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home';
-import CheckInCheckOut from './components/CheckInCheckOutScreen'
+import CheckInScreen from './components/CheckInScreen'
+import CheckOutScreen from './components/CheckOutScreen'
 
 const RouterComponent = () => {
   return (
@@ -20,9 +21,14 @@ const RouterComponent = () => {
           initial
         />
         <Scene
-          key="checkinout"
-          component={CheckInCheckOut}
-          title="CheckInOut"
+          key="checkin"
+          component={CheckInScreen}
+          title="CheckIn"
+        />
+        <Scene
+          key="checkout"
+          component={CheckOutScreen}
+          title="CheckOut"
         />
       </Scene>
     </Router>
