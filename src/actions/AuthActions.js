@@ -32,7 +32,7 @@ export const loginUser = ({ email, password }) => {
   //   password: password
   // })
   // .then(response => {
-  //     console.log(response.data.code);
+
   //     if (response.data.code===0){
   //       loginUserSuccess(dispatch, response);
   //     } else {
@@ -41,7 +41,7 @@ export const loginUser = ({ email, password }) => {
   //   }
   // )
   // .catch((error) => {
-  //     console.log(error);
+
   //     loginUserFail(dispatch);
   //   });
   };

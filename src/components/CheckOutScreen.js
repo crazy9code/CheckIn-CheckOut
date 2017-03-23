@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
+  Keyboard,
+  StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardSection, Button, Input, Spinner } from './common';
@@ -15,7 +14,7 @@ export class MyComponent extends Component {
 
   onButtonPress() {
     const { eid } = this.props;
-
+    Keyboard.dismiss();
     this.props.checkOutUser({ eid });
   }
 
@@ -37,9 +36,9 @@ export class MyComponent extends Component {
         <CardSection>
           <Input
             label='Employee ID'
-            placeholder='000'
+            placeholder='0000'
             keyboardType='numeric'
-            maxLength={3}
+            maxLength={4}
             value={this.props.eid}
             onChangeText={this.onEidChange.bind(this)}
             />
