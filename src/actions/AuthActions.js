@@ -26,22 +26,24 @@ export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
 
-    axios.post('http://demo7502315.mockable.io/login', {
-    email_en: email,
-    password_en: password
-  })
-  .then(response => {
-      console.log(response);
-      if (!response.data.error) {
-        loginUserSuccess(dispatch, response);
-      } else {
-          loginUserFail(dispatch);
-      }
-    })
-  .catch((error) => {
-      console.log(error);
-      loginUserFail(dispatch);
-    });
+    loginUserSuccess(dispatch);
+  //   axios.post('http://192.168.150.184:8000/employee/login/', {
+  //   username: email,
+  //   password: password
+  // })
+  // .then(response => {
+  //     console.log(response.data.code);
+  //     if (response.data.code===0){
+  //       loginUserSuccess(dispatch, response);
+  //     } else {
+  //       loginUserFail(dispatch);
+  //     }
+  //   }
+  // )
+  // .catch((error) => {
+  //     console.log(error);
+  //     loginUserFail(dispatch);
+  //   });
   };
 };
 
