@@ -26,38 +26,40 @@ export const checkOutEidChanged = (text) => {
   };
 };
 
-const getToken = async() => {
-  try {
-    const value = await AsyncStorage.getItem('@KulizaAttendance:access_token');
-    if (value !== null) {
-      // We have data!!
-    }
+export const checkInUser = ({ eidCheckIn }) => {
+  return (dispatch) => {
+    dispatch({ type: CHECK_IN });
+
+    try {
+      AsyncStorage.getItem('@KulizaAttendance:access_token').then(
+        (token) => {
+          if (token !== null) {
+            console.log(token);
+            const config = { headers: { 'Authorization': 'Token ' + token } };
+            console.log(config);
+            console.log(eidCheckIn);
+            axios.post('http://52.87.255.243:8003/employee/checkin/', {
+              emp: eidCheckIn,
+            }, config)
+            .then(response => {
+              console.log(response);
+              if (response.data.code === 0) {
+                checkInSuccess(dispatch, response);
+              } else {
+                checkInFail(dispatch, response.data.message);
+              }
+            }
+          )
+          .catch(() => {
+            checkInFail(dispatch, "Network Error");
+          });
+        }
+      }
+    );
   } catch (error) {
     // Error retrieving data
   }
 };
-
-export const checkInUser = ({ eid }) => {
-  return (dispatch) => {
-    dispatch({ type: CHECK_IN });
-
-    getToken();
-
-    axios.post('https://demo8889499.mockable.io/checkin', {
-      emp: eid,
-    })
-    .then(response => {
-        if (response.data.code === 0) {
-          checkInSuccess(dispatch, response);
-        } else {
-          checkInFail(dispatch, response.data.message);
-        }
-      }
-    )
-    .catch((error) => {
-      checkInFail(dispatch);
-    });
-  };
 };
 
 const checkInFail = (dispatch, message) => {
@@ -88,25 +90,38 @@ const checkInSuccess = (dispatch, user) => {
   );
 };
 
-export const checkOutUser = ({ eid }) => {
+export const checkOutUser = ({ eidCheckOut }) => {
   return (dispatch) => {
     dispatch({ type: CHECK_OUT });
-
-  axios.post('https://demo8889499.mockable.io/checkin', {
-    emp: eid,
-  })
-  .then(response => {
-      if (response.data.code === 0) {
-        checkOutSuccess(dispatch, response);
-      } else {
-        checkOutFail(dispatch, response.data.message);
+    try {
+      AsyncStorage.getItem('@KulizaAttendance:access_token').then(
+        (token) => {
+          if (token !== null) {
+            console.log(token);
+            const config = { headers: { 'Authorization': 'Token ' + token } };
+            console.log(config);
+            axios.post('http://52.87.255.243:8003/employee/checkout/', {
+              emp: eidCheckOut,
+            }, config)
+            .then(response => {
+              console.log(response);
+              if (response.data.code === 0) {
+                checkOutSuccess(dispatch, response);
+              } else {
+                checkOutFail(dispatch, response.data.message);
+              }
+            }
+          )
+          .catch(() => {
+            checkOutFail(dispatch, "Network Error");
+          });
+        }
       }
-    }
-  )
-  .catch((error) => {
-      checkOutFail(dispatch);
-    });
-  };
+    );
+  } catch (error) {
+    // Error retrieving data
+  }
+};
 };
 
 const checkOutFail = (dispatch, message) => {

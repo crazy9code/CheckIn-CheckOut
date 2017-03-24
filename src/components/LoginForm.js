@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, Keyboard, View, AsyncStorage } from 'react-native';
+import { Text, Image, Keyboard, ScrollView, View, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
@@ -67,6 +67,7 @@ class LoginForm extends Component {
       );
     }
     return (
+      <ScrollView>
         <Card>
           <CardSection>
             <Input
@@ -95,6 +96,7 @@ class LoginForm extends Component {
             {this.renderButton()}
           </CardSection>
         </Card>
+      </ScrollView>
       );
   }
 

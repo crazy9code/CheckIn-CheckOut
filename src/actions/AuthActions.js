@@ -35,7 +35,7 @@ export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
 
-    axios.post('https://demo8889499.mockable.io/login', {
+    axios.post('http://52.87.255.243:8003/employee/login/', {
     username: email,
     password: password
   })
