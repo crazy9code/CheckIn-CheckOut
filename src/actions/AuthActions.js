@@ -35,12 +35,11 @@ export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
 
-    axios.post('https://demo8889499.mockable.io/login', {
+    axios.post('http://52.87.255.243:8003/employee/login/', {
     username: email,
     password: password
   })
   .then(response => {
-      console.log(response.data);
       if (response.data.code === 0) {
         loginUserSuccess(dispatch, response);
         storeToken(response.data.token);
@@ -50,7 +49,6 @@ export const loginUser = ({ email, password }) => {
     }
   )
   .catch((error) => {
-      console.log(error);
       loginUserFail(dispatch);
     });
   };
@@ -66,5 +64,5 @@ const loginUserSuccess = (dispatch, user) => {
     payload: user
   });
 
-  Actions.main();
+  Actions.main({ type: 'reset' });
 };

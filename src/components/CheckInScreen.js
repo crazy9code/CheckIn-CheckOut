@@ -15,9 +15,10 @@ export class MyComponent extends Component {
   }
 
   onButtonPress() {
-    const { eid } = this.props;
+    const { eidCheckIn } = this.props;
     Keyboard.dismiss();
-    this.props.checkInUser({ eid });
+    console.log("onButtonPress:  "+eidCheckIn);
+    this.props.checkInUser({ eidCheckIn });
   }
 
   renderButton() {
@@ -41,7 +42,7 @@ export class MyComponent extends Component {
             placeholder='0000'
             keyboardType='numeric'
             maxLength={4}
-            value={this.props.eid}
+            value={this.props.eidCheckIn}
             onChangeText={this.onEidChange.bind(this)}
           />
         </CardSection>
@@ -61,9 +62,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = ({ checkin }) => {
-  const { eid, loading } = checkin;
+  const { eidCheckIn, loading } = checkin;
   console.log(checkin);
-  return { eid, loading };
+  return { eidCheckIn, loading };
 };
 
 export default connect(mapStateToProps, {
