@@ -4,6 +4,6 @@
       "arrow-body-style": 0,
       "max-len": 0,
       "eol-last": 0,
-
+      "react/jsx-closing-bracket-location": 0,
     }
 }
