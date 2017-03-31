@@ -15,6 +15,7 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, keybo
         secureTextEntry={secureTextEntry}
         autoCorrect={false}
         maxLength={maxLength}
+        underlineColorAndroid="#2e2a26"
         placeholder={placeholder}
         placeholderTextColor='#D3D3D3'
         keyboardType={keyboardType}
@@ -26,18 +27,19 @@ const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, keybo
   );
 };
 
-const styles={
+const styles = {
   inputStyle: {
     color: '#000',
-    paddingRight: 5,
-    paddingLeft: 5,
+    // paddingRight: 5,
+    // paddingLeft: 5,
     fontSize: 18,
     lineHeight: 23,
     flex: 2,
   },
   labelStyle: {
-    fontSize: 14,
-    paddingLeft: 20,
+    fontSize: 18,
+    // paddingLeft: 20,
+    color: '#2e2a26',
     flex: 1
   },
   containerStyle: {

@@ -1,6 +1,7 @@
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 import { AsyncStorage, Alert } from 'react-native';
+import Popup from 'react-native-popup';
 import {
   CHECK_IN,
   CHECK_IN_EID_CHANGED,
@@ -62,16 +63,27 @@ export const checkInUser = ({ eidCheckIn }) => {
 };
 };
 
+const DialogAndroid = require('react-native-dialogs');
+
 const checkInFail = (dispatch, message) => {
   dispatch({ type: CHECK_IN_FAIL });
-  Alert.alert(
-    'Check In Result',
-    'Failed to Check In\nMessage: ' + message,
-    [
-      { text: 'OK' },
-    ],
-    { cancelable: false }
-  );
+  // Alert.alert(
+  //   'Check In Result',
+  //   'Failed to Check In\nMessage: ' + message,
+  //   [
+  //     { text: 'OK' },
+  //   ],
+  //   { cancelable: false }
+  // );
+  const options = {
+    title: 'Check In Result',
+    content: `Failed to Check In\nMessage: ${message}`,
+    positiveText: 'OK',
+  };
+
+  const dialog = new DialogAndroid();
+  dialog.set(options);
+  dialog.show();
 };
 
 const checkInSuccess = (dispatch, user) => {
@@ -79,15 +91,16 @@ const checkInSuccess = (dispatch, user) => {
     type: CHECK_IN_SUCCESS,
     payload: user
   });
+  const options = {
+    title: 'Check In Result',
+    content: 'Successfully Checked In',
+    positiveText: 'OK',
+    onPositive: () => Actions.pop(),
+  };
 
-  Alert.alert(
-    'Check In Result',
-    'Successfully Checked In',
-    [
-      { text: 'OK', onPress: () => Actions.pop() },
-    ],
-    { cancelable: false }
-  );
+  const dialog = new DialogAndroid();
+  dialog.set(options);
+  dialog.show();
 };
 
 export const checkOutUser = ({ eidCheckOut }) => {
@@ -126,14 +139,16 @@ export const checkOutUser = ({ eidCheckOut }) => {
 
 const checkOutFail = (dispatch, message) => {
   dispatch({ type: CHECK_OUT_FAIL });
-  Alert.alert(
-    'Check Out Result',
-    'Failed to Check Out\nMessage: ' + message,
-    [
-      { text: 'OK' },
-    ],
-    { cancelable: false }
-  );
+
+  const options = {
+    title: 'Check Out Result',
+    content: `Failed to Check Out\nMessage: ${message}`,
+    positiveText: 'OK',
+  };
+
+  const dialog = new DialogAndroid();
+  dialog.set(options);
+  dialog.show();
 };
 
 const checkOutSuccess = (dispatch, user) => {
@@ -142,12 +157,14 @@ const checkOutSuccess = (dispatch, user) => {
     payload: user
   });
 
-  Alert.alert(
-    'Check Out Result',
-    'Successfully Checked Out',
-    [
-      { text: 'OK', onPress: () => Actions.pop() },
-    ],
-    { cancelable: false }
-  );
+  const options = {
+    title: 'Check Out Result',
+    content: 'Successfully Checked Out',
+    positiveText: 'OK',
+    onPositive: () => Actions.pop(),
+  };
+
+  const dialog = new DialogAndroid();
+  dialog.set(options);
+  dialog.show();
 };
