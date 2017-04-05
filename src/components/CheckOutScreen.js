@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection, Button, TextInputLayout, Spinner } from './common';
-import { checkOutEidChanged, checkOutUser } from '../actions';
+import { checkOutEidChanged, checkOutUser, getEmployeeCount } from '../actions';
 
 export class MyComponent extends Component {
   onEidChange(text) {
@@ -23,6 +23,7 @@ export class MyComponent extends Component {
     const { eidCheckOut } = this.props;
     Keyboard.dismiss();
     this.props.checkOutUser({ eidCheckOut });
+    this.props.getEmployeeCount();
   }
 
   renderButton() {
@@ -57,6 +58,7 @@ export class MyComponent extends Component {
               style={styles.inputLayout}
             >
               <TextInput
+                  autoFocus
                   style={styles.textInput}
                   value={this.props.eidCheckOut}
                   placeholder={'Employee ID'}
@@ -138,10 +140,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = ({ checkin }) => {
   const { eidCheckOut, loading } = checkin;
-  console.log(checkin);
+  // console.log(checkin);
   return { eidCheckOut, loading };
 };
 
 export default connect(mapStateToProps, {
-  checkOutEidChanged, checkOutUser
+  checkOutEidChanged, checkOutUser, getEmployeeCount
 })(MyComponent);

@@ -6,14 +6,15 @@ import {
   CHECK_OUT_EID_CHANGED,
   CHECK_OUT,
   CHECK_OUT_SUCCESS,
-  CHECK_OUT_FAIL
+  CHECK_OUT_FAIL,
+  EMPLOYEE_COUNT
 } from '../actions/types';
 
 const INITIAL_STATE = {
   eidCheckIn: '',
   eidCheckOut: '',
   error: '',
-  loading: false
+  loading: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -34,6 +35,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...INITIAL_STATE };
     case CHECK_OUT_FAIL:
       return { ...state, eidCheckOut: '', error: 'Authentication Failed.', loading: false };
+    case EMPLOYEE_COUNT:
+      return { ...state, count: action.payload };
     default:
       return state;
   }

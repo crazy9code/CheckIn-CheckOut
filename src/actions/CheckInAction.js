@@ -10,7 +10,8 @@ import {
   CHECK_OUT,
   CHECK_OUT_EID_CHANGED,
   CHECK_OUT_SUCCESS,
-  CHECK_OUT_FAIL
+  CHECK_OUT_FAIL,
+  EMPLOYEE_COUNT
 } from './types';
 
 export const checkInEidChanged = (text) => {
@@ -35,32 +36,29 @@ export const checkInUser = ({ eidCheckIn }) => {
       AsyncStorage.getItem('@KulizaAttendance:access_token').then(
         (token) => {
           if (token !== null) {
-            console.log(token);
             const config = { headers: { 'Authorization': 'Token ' + token } };
-            console.log(config);
-            console.log(eidCheckIn);
             axios.post('http://52.87.255.243:8003/employee/checkin/', {
               emp: eidCheckIn,
             }, config)
             .then(response => {
-              console.log(response);
-              if (response.data.code === 0) {
-                checkInSuccess(dispatch, response);
-              } else {
-                checkInFail(dispatch, response.data.message);
+                console.log(response);
+                if (response.data.code === 0) {
+                  checkInSuccess(dispatch, response);
+                } else {
+                  checkInFail(dispatch, response.data.message);
+                }
               }
-            }
-          )
-          .catch(() => {
-            checkInFail(dispatch, "Network Error");
-          });
+            )
+            .catch(() => {
+              checkInFail(dispatch, "Network Error");
+            });
+          }
         }
-      }
-    );
-  } catch (error) {
-    // Error retrieving data
-  }
-};
+      );
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
 };
 
 const DialogAndroid = require('react-native-dialogs');
@@ -167,4 +165,44 @@ const checkOutSuccess = (dispatch, user) => {
   const dialog = new DialogAndroid();
   dialog.set(options);
   dialog.show();
+};
+
+export const getEmployeeCount = () => {
+  console.log('getEmployeeCount called');
+  return (dispatch) => {
+    // dispatch({ type: EMPLOYEE_COUNT });
+    console.log('here');
+    try {
+      console.log('here1');
+      AsyncStorage.getItem('@KulizaAttendance:access_token').then(
+        (token) => {
+          console.log('here3');
+          if (token !== null) {
+            console.log('here4');
+            // console.log(token);
+            const config = { headers: { 'Authorization': 'Token ' + token } };
+            // console.log(config);
+            axios.post('http://52.87.255.243:8003/employee/countcheckin/', null, config)
+            .then(response => {
+              console.log(response);
+              if (response.data.code === 0) {
+                // console.log('getCount Success');
+                dispatch({ type: EMPLOYEE_COUNT, payload: response.data.count });
+              } else {
+                console.log('getCount Failed');
+                // checkOutFail(dispatch, response.data.message);
+              }
+            }
+          )
+          .catch(() => {
+            console.log('Nerwork Error');
+            // checkOutFail(dispatch, "Network Error");
+          });
+        }
+      }
+    );
+  } catch (error) {
+    // Error retrieving data
+  }
+};
 };

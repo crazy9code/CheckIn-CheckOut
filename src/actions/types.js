@@ -12,3 +12,4 @@ export const CHECK_OUT_EID_CHANGED = 'check_out_eid_changed';
 export const CHECK_OUT = 'check_out';
 export const CHECK_OUT_SUCCESS = 'check_out_success';
 export const CHECK_OUT_FAIL = 'check_out_fail';
+export const EMPLOYEE_COUNT = 'employee_count';

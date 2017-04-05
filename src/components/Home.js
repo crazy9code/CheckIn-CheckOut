@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
-import { View, ScrollView, Text, Image, TouchableWithoutFeedback, AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
+import { View, ScrollView, Text, Image, TouchableWithoutFeedback, AsyncStorage, RefreshControl } from 'react-native';
 import { Card, CardSection, Button } from './common';
+import { getEmployeeCount } from '../actions';
 
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+    };
+  }
 
-export default class Home extends Component {
-
+  componentWillMount() {
+    this.props.getEmployeeCount();
+  }
   onCheckInButtonPressed() {
     Actions.checkin();
   }
@@ -17,9 +27,20 @@ export default class Home extends Component {
     await AsyncStorage.clear();
   }
 
+  onRefresh = () => {
+    this.props.getEmployeeCount();
+  }
+
   render() {
     return (
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.onRefresh.bind(this)}
+          />
+        }
+        >
 
         <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
           <Text style={styles.appTitleTextStyle}>Home</Text>
@@ -28,7 +49,7 @@ export default class Home extends Component {
 
         <View style={styles.employeeCountContainer}>
           <Image style={{ height: 50, width: 50, resizeMode: 'contain' }} source={require('../images/Account.png')} />
-          <Text style={[styles.normalText, { fontSize: 45 }]}>12</Text>
+          <Text style={[styles.normalText, { fontSize: 45 }]}>{this.props.count || '00'}</Text>
           <Text style={[styles.normalText, { fontSize: 14, paddingTop: 5 }]}>Employees{'\n'}are checked in</Text>
         </View>
 
@@ -106,3 +127,14 @@ const styles = {
     resizeMode: 'contain',
   },
 };
+
+
+const mapStateToProps = ({ checkin }) => {
+  const { count } = checkin;
+  // console.log(checkin);
+  return { count };
+};
+
+export default connect(mapStateToProps, {
+  getEmployeeCount
+})(Home);
