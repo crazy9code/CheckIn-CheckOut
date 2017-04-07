@@ -43,7 +43,7 @@ export const checkInUser = ({ eidCheckIn }) => {
             .then(response => {
                 console.log(response);
                 if (response.data.code === 0) {
-                  checkInSuccess(dispatch, response);
+                  checkInSuccess(dispatch, response.data.message);
                 } else {
                   checkInFail(dispatch, response.data.message);
                 }
@@ -84,14 +84,14 @@ const checkInFail = (dispatch, message) => {
   dialog.show();
 };
 
-const checkInSuccess = (dispatch, user) => {
+const checkInSuccess = (dispatch, message) => {
   dispatch({
     type: CHECK_IN_SUCCESS,
-    payload: user
   });
+  console.log(message);
   const options = {
     title: 'Check In Result',
-    content: 'Successfully Checked In',
+    content: `${message}`,
     positiveText: 'OK',
     onPositive: () => Actions.pop(),
   };
@@ -117,7 +117,7 @@ export const checkOutUser = ({ eidCheckOut }) => {
             .then(response => {
               console.log(response);
               if (response.data.code === 0) {
-                checkOutSuccess(dispatch, response);
+                checkOutSuccess(dispatch, response.data.message);
               } else {
                 checkOutFail(dispatch, response.data.message);
               }
@@ -149,15 +149,14 @@ const checkOutFail = (dispatch, message) => {
   dialog.show();
 };
 
-const checkOutSuccess = (dispatch, user) => {
+const checkOutSuccess = (dispatch, message) => {
   dispatch({
     type: CHECK_OUT_SUCCESS,
-    payload: user
   });
 
   const options = {
     title: 'Check Out Result',
-    content: 'Successfully Checked Out',
+    content: `${message}`,
     positiveText: 'OK',
     onPositive: () => Actions.pop(),
   };

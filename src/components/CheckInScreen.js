@@ -45,7 +45,9 @@ export class MyComponent extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView
+        keyboardShouldPersistTaps='always'
+        >
 
         <View style={styles.appBarContainer}>
           <TouchableWithoutFeedback onPress={() => Actions.pop()}>
@@ -68,6 +70,7 @@ export class MyComponent extends Component {
                   keyboardType="numeric"
                   maxLength={4}
                   onChangeText={this.onEidChange.bind(this)}
+                  onSubmitEditing={this.onButtonPress.bind(this)}
               />
             </TextInputLayout>
           </CardSection>

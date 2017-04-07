@@ -72,7 +72,9 @@ class LoginForm extends Component {
       );
     }
     return (
-      <ScrollView>
+      <ScrollView
+        keyboardShouldPersistTaps='always'
+        >
 
         <Image style={styles.kulizaLogoStyle} source={require('../images/kuliza_logo.png')} />
 
@@ -91,7 +93,11 @@ class LoginForm extends Component {
                   value={this.props.email}
                   placeholder={'ID'}
                   keyboardType="numeric"
+                  returnKeyType={'next'}
                   onChangeText={this.onEmailChange.bind(this)}
+                  onSubmitEditing={(event) => {
+                    this.refs.SecondInput.focus();
+                  }}
               />
             </TextInputLayout>
           </CardSection>
@@ -101,11 +107,13 @@ class LoginForm extends Component {
               style={styles.inputLayout}
             >
               <TextInput
+                  ref='SecondInput'
                   style={styles.textInput}
                   value={this.props.password}
                   placeholder={'Password'}
                   secureTextEntry
                   onChangeText={this.onPasswordChange.bind(this)}
+                  onSubmitEditing={this.onButtonPress.bind(this)}
               />
             </TextInputLayout>
 
