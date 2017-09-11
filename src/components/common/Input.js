@@ -48,6 +48,6 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center'
   }
-}
+};
 
 export { Input };

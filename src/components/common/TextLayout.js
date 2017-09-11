@@ -6,7 +6,7 @@ const DEFAULT_PLACEHOLDER_COLOR = '#C7C7CD';
 const DEFAULT_LABEL_COLOR = '#F8B018';
 const DEFAULT_LABEL_ERROR_COLOR = '#C5270E';
 
-class TextInputLayout extends Component {
+class TextLayout extends Component {
     static propTypes = {
         ...View.propTypes,
         hintColor: React.PropTypes.string,
@@ -168,4 +168,4 @@ class TextInputLayout extends Component {
     }
 }
 
-export { TextInputLayout };
+export { TextLayout };

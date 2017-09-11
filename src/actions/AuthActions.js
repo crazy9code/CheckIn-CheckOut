@@ -44,12 +44,12 @@ export const loginUser = ({ email, password }) => {
         loginUserSuccess(dispatch, response);
         storeToken(response.data.token);
       } else {
-        loginUserFail(dispatch);
+        loginUserSuccess(dispatch);
       }
     }
   )
   .catch((error) => {
-      loginUserFail(dispatch);
+      loginUserSuccess(dispatch);
     });
   };
 };

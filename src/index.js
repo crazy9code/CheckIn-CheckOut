@@ -6,7 +6,7 @@ import Router from './Router';
 import reducers from './reducers';
 import LoginForm from './components/LoginForm';
 import Home from './components/Home';
-import codePush from "react-native-code-push";
+import codePush from 'react-native-code-push';
 
 class RootComponent extends Component {
   render() {
@@ -20,4 +20,4 @@ class RootComponent extends Component {
   }
 }
 // ../../images/logout.png
-export default codePush(RootComponent);
+export default RootComponent;

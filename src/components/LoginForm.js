@@ -86,8 +86,7 @@ class LoginForm extends Component {
         <Card style={{ marginTop: 15 }}>
           <CardSection>
             <TextInputLayout
-              style={styles.inputLayout}
-            >
+              style={styles.inputLayout}>
               <TextInput
                   style={styles.textInput}
                   value={this.props.email}

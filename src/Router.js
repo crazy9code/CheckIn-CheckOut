@@ -9,7 +9,7 @@ import CheckOutScreen from './components/CheckOutScreen';
 const RouterComponent = () => {
   return (
     <Router sceneStyle={styles.sceneStyle} hideNavBar>
-      <Scene key="auth" >
+      <Scene key="auth" initial>
         <Scene key="login" sceneStyle={{ paddingTop: 10 }} component={LoginForm} title="Kuliza Check io" />
       </Scene>
       <Scene key="main">
